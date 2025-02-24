@@ -1,0 +1,6 @@
+tofu/.terraform
+tofu/output/*
+tofu/proxmox.auto.tfvars
+tofu/terraform.tfstate
+tofu/terraform.log
+.sops/**
