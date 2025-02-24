@@ -68,20 +68,3 @@ envoy:
     capabilities:
       keepCapNetBindService: true
       envoy: [ NET_ADMIN, PERFMON, BPF ]
-
-# ingressController:
-#   enabled: true
-#   default: true
-#   loadbalancerMode: shared
-#   service:
-#     annotations:
-#       io.cilium/lb-ipam-ips: 192.168.1.223
-
-# hubble:
-#   enabled: true
-#   relay:
-#     enabled: true
-#     rollOutPods: true
-#   ui:
-#     enabled: true
-#     rollOutPods: true
