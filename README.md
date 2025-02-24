@@ -65,4 +65,4 @@ flux resume kustomization apps
 ```
 
 ### Footnotes
-Check my [Wiki](https://wiki.f9.casa) for more details! (WIP)
+Check my [Wiki](https://wiki.f9.casa) for more details!
