@@ -42,7 +42,7 @@ export GITHUB_TOKEN=[GITHUB_TOKEN]
 
 7. Run the following commands
 ```bash
-kubectl create namespace flux-system`
+kubectl create namespace flux-system
 kubectl create secret generic sops-age -n flux-system --from-file=age.agekey=$SOPSKEY
 ```
 
