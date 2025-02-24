@@ -30,39 +30,40 @@ Ensure you have fluxcli, kubectl, talosctl and sops installed in a WSL or Linux 
 
 1. Download the repo `git clone https://github.com/fma965/f9-k8s.git`
 2. Apply values to `tofu\proxmox.auto.tfvars`
-3. Run `tofu plan`
-4. Run `tofu apply` and wait for completion
-5. Export required values
+3. Run `tofu init`
+4. Run `tofu plan`
+5. Run `tofu apply` and wait for completion
+6. Export required values
 ```bash
 export KUBECONFIG=/home/scott/f9-k8s/tofu/output/kube-config.yaml
 export SOPSKEY=/home/scott/f9-k8s/.sops/age/private.key
 export GITHUB_TOKEN=[GITHUB_TOKEN]
 ```
 
-6. Run the following commands
+7. Run the following commands
 ```bash
 kubectl create namespace flux-system`
 kubectl create secret generic sops-age -n flux-system --from-file=age.agekey=$SOPSKEY
 ```
 
-7. Bootstrap the repo with FluxCD
+8. Bootstrap the repo with FluxCD
 ```bash
 flux bootstrap github --token-auth --owner=fma965 --repository=f9-k8s --path=clusters/home --personal
 flux suspend kustomization infra-databases
 flux suspend kustomization apps
 ```
 
-8. Using `kubectl -n longhorn-system port-forward svc/longhorn-frontend 8080:80` port forward access to Longhorn WebUI
-9. Open your browser and navigate to http://localhost:8080.
+9. Using `kubectl -n longhorn-system port-forward svc/longhorn-frontend 8080:80` port forward access to Longhorn WebUI
+10. Open your browser and navigate to http://localhost:8080.
 
-10. In the UI, Click on "Backups", Select all volumes, "Restore from last backup".
+11. In the UI, Click on "Backups", Select all volumes, "Restore from last backup".
     
-11. Once restore has completed run the following commands
+12. Once restore has completed run the following commands
 ```bash
 kubectl rollout restart deployment/mariadb -n mariadb
 kubectl rollout restart deployment/postgresql -n postgresql
 ```
-12. Finally run the following commands to resume the FluxCD deployment
+13. Finally run the following commands to resume the FluxCD deployment
 ```bash
 flux resume kustomization infra-databases
 flux resume kustomization apps

@@ -4,3 +4,4 @@ tofu/proxmox.auto.tfvars
 tofu/terraform.tfstate
 tofu/terraform.log
 .sops/**
+terraform.tfstate
