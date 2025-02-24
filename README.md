@@ -8,8 +8,6 @@ Terraform base from [Stonegarden](https://blog.stonegarden.dev/articles/2024/08/
 
 This repo mostly follows the FluxCD Mono Repo structure.
 
-Check my [Wiki](https://wiki.f9.casa) for more details! (WIP)
-
 ### Secrets
 All `secret.enc.yaml` and `*-secret.enc.yaml` files are encrypted with SOPS using AGE.
 
@@ -27,18 +25,13 @@ Windows users download [SOPS](https://github.com/getsops/sops/releases/latest) a
 
 Linux users follow the instructions at [SOPS](https://github.com/getsops/sops/releases/latest) to install SOPS to `/usr/local/bin/sops`
 
-
-
 ### Restore Steps (with existing volumes)
+Ensure you have fluxcli, kubectl, talosctl and sops installed in a WSL or Linux installation
 
 1. Download the repo `git clone https://github.com/fma965/f9-k8s.git`
 2. Apply values to `tofu\proxmox.auto.tfvars`
 3. Run `tofu plan`
-4. Run `tofu apply`
-
-Wait for the tofu plan to finish applying
-(6 VM's and for the Kubernetes cluster to be configured)
-
+4. Run `tofu apply` and wait for completion
 5. Export required values
 ```bash
 export KUBECONFIG=/home/scott/f9-k8s/tofu/output/kube-config.yaml
@@ -46,22 +39,34 @@ export SOPSKEY=/home/scott/f9-k8s/.sops/age/private.key
 export GITHUB_TOKEN=[GITHUB_TOKEN]
 ```
 
-6. `kubectl create namespace flux-system`
-7. `kubectl create secret generic sops-age -n flux-system --from-file=age.agekey=$SOPSKEY`
-8. `flux bootstrap github --token-auth --owner=fma965 --repository=f9-k8s --path=clusters/home --personal`
-9. `flux suspend kustomization infra-databases`
-10. `flux suspend kustomization apps`
+6. Run the following commands
+```bash
+kubectl create namespace flux-system`
+kubectl create secret generic sops-age -n flux-system --from-file=age.agekey=$SOPSKEY
+```
 
-11. Using `kubectl port-forward service/longhorn-frontend :80 -n longhorn-system` port forward access to Longhorn WebUI
-12. Configure longhorn backup target `s3://f9-k3s-longhorn@eu-west-2/` & `minio-longhorn-secret`
-13. Restore the volumes from the backup target (UnRAID Garage S3)
-14. Once restore has completed run the following commands
+7. Bootstrap the repo with FluxCD
+```bash
+flux bootstrap github --token-auth --owner=fma965 --repository=f9-k8s --path=clusters/home --personal
+flux suspend kustomization infra-databases
+flux suspend kustomization apps
+```
+
+8. Using `kubectl -n longhorn-system port-forward svc/longhorn-frontend 8080:80` port forward access to Longhorn WebUI
+9. Open your browser and navigate to http://localhost:8080.
+
+10. In the UI, Click on "Backups", Select all volumes, "Restore from last backup".
+    
+11. Once restore has completed run the following commands
 ```bash
 kubectl rollout restart deployment/mariadb -n mariadb
 kubectl rollout restart deployment/postgresql -n postgresql
 ```
-15. Finally run the following commands
+12. Finally run the following commands to resume the FluxCD deployment
 ```bash
 flux resume kustomization infra-databases
 flux resume kustomization apps
 ```
+
+### Footnotes
+Check my [Wiki](https://wiki.f9.casa) for more details! (WIP)
