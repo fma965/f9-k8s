@@ -42,7 +42,7 @@ export GITHUB_TOKEN=[GITHUB_TOKEN]
 
 7. Run the following commands
 ```bash
-kubectl create namespace flux-system`
+kubectl create namespace flux-system
 kubectl create secret generic sops-age -n flux-system --from-file=age.agekey=$SOPSKEY
 ```
 
@@ -58,16 +58,11 @@ flux suspend kustomization apps
 
 11. In the UI, Click on "Backups", Select all volumes, "Restore from last backup".
     
-12. Once restore has completed run the following commands
-```bash
-kubectl rollout restart deployment/mariadb -n mariadb
-kubectl rollout restart deployment/postgresql -n postgresql
-```
-13. Finally run the following commands to resume the FluxCD deployment
+12. Finally once the restore completes, run the following commands to resume the FluxCD deployment
 ```bash
 flux resume kustomization infra-databases
 flux resume kustomization apps
 ```
 
 ### Footnotes
-Check my [Wiki](https://wiki.f9.casa) for more details! (WIP)
+Check my [Wiki](https://wiki.f9.casa) for more details!
