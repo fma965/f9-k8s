@@ -14,7 +14,10 @@ All `secret.enc.yaml` and `*-secret.enc.yaml` files are encrypted with SOPS usin
 I have included `secret.sample.yaml` and `*-secret.sample.yaml` files which contain placeholder values to enhance the usability.
 
 Set your GitHooks to use `.githooks` with this command
-`git config --local core.hooksPath .githooks/`
+```
+git config --local core.hooksPath .githooks/
+chmod +x .githooks/*
+```
 This makes sure any filename with `secret.yaml` in it's name is encrypted with SOPS
 
 [AGE](https://github.com/FiloSottile/age) keys for SOPS to use need to be saved in the following structure from the root of this repo.
