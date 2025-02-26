@@ -39,6 +39,12 @@ spec:
                 secretKeyRef:
                   name: postgresql-secret
                   key: PGADMIN_DEFAULT_PASSWORD
+            - name: PGADMIN_CONFIG_X_CONTENT_TYPE_OPTIONS
+              value: ""
+            - name: PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION
+              value: "False"
+            - name: PGADMIN_CONFIG_X_XSS_PROTECTION
+              value: "0"
           volumeMounts:
             - mountPath: /var/lib/pgadmin
               name: pgadmin
