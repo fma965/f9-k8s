@@ -40,7 +40,7 @@ spec:
                   name: postgresql-secret
                   key: PGADMIN_DEFAULT_PASSWORD
             - name: PGADMIN_CONFIG_X_CONTENT_TYPE_OPTIONS
-              value: ""
+              value: "test"
             - name: PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION
               value: "False"
             - name: PGADMIN_CONFIG_X_XSS_PROTECTION
