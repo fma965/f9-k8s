@@ -38,3 +38,5 @@ spec:
           value: "s3"
         - name: FORCE_HTTPS
           value: "false"
+        - name: PGSSLMODE
+          value: "disabled"
