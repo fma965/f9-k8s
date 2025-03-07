@@ -33,7 +33,7 @@ spec:
         - name: NODE_ENV
           value: "production"
         - name: URL
-          value: "docs.f9.casa"
+          value: "https://docs.f9.casa"
         - name: FILE_STORAGE
           value: "s3"
         - name: FORCE_HTTPS
