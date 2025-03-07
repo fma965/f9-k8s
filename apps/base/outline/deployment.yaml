@@ -39,4 +39,4 @@ spec:
         - name: FORCE_HTTPS
           value: "false"
         - name: PGSSLMODE
-          value: "disabled"
+          value: "disable"
