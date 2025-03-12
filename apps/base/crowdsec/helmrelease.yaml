@@ -30,11 +30,12 @@ spec:
         value: "crowdsecurity/cri-logs"
       - name: COLLECTIONS
         value: "crowdsecurity/traefik"
-      persistentVolume:
-        # When replicas for LAPI is greater than 1, two options, persistent volumes must be disabled, or in ReadWriteMany mode
-        config:
-          enabled: false
-          
+
+    tls:
+      enabled: true
+      agent:
+        tlsClientAuth: true
+        
     config:
       config.yaml.local: |
         api:
@@ -55,13 +56,16 @@ spec:
           host:     postgresql.postgresql
           port:     5432
           sslmode:  disable
+          flush:
+            agents_autodelete:
+              cert: 60m # This is TLS client authentication
+              login_password: 60m # This includes the auto registration token as well
 
     lapi:
       replicas: 3
       persistentVolume:
-      # When replicas for LAPI is greater than 1, two options, persistent volumes must be disabled, or in ReadWriteMany mode
-        config:
-          enabled: false
+        config: 
+          accessModes: ReadWriteMany
         # data volume is not required, since SQLite isn't used
         data:
           enabled: false
