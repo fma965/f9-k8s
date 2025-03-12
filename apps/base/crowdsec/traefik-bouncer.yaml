@@ -5,7 +5,7 @@ metadata:
   namespace: traefik
 spec:
   plugin:
-    bouncer:
+    crowdsec-bouncer-traefik-plugin:
       enabled: true
       crowdsecMode: stream
       crowdsecLapiScheme: https
