@@ -102,5 +102,5 @@ spec:
           moduleName: "github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
           version: "v1.4.1"
         cloudflarewarp:
-          modulename: github.com/BetterCorp/cloudflarewarp
-          version: v1.3.0
+          modulename: "github.com/BetterCorp/cloudflarewarp"
+          version: "v1.3.0"
