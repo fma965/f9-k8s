@@ -30,12 +30,7 @@ spec:
         value: "crowdsecurity/cri-logs"
       - name: COLLECTIONS
         value: "crowdsecurity/traefik"
-
-    tls:
-      enabled: true
-      agent:
-        tlsClientAuth: true
-        
+       
     config:
       config.yaml.local: |
         api:
@@ -65,7 +60,7 @@ spec:
       replicas: 3
       persistentVolume:
         config: 
-          accessModes: ReadWriteMany
+          enabled: false
         # data volume is not required, since SQLite isn't used
         data:
           enabled: false

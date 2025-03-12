@@ -8,6 +8,6 @@ spec:
     crowdsec-bouncer-traefik-plugin:
       enabled: true
       crowdsecMode: stream
-      crowdsecLapiScheme: https
+      crowdsecLapiScheme: http
       crowdsecLapiHost: crowdsec-service.crowdsec:8080
       crowdsecLapiKey: mysecretkey12345
