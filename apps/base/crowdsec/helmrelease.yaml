@@ -1,0 +1,41 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: crowdsec
+  namespace: crowdsec
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: crowdsec
+      sourceRef:
+        kind: HelmRepository
+        name: crowdsec
+        namespace: crowdsec
+      interval: 12h
+  values:
+    # for raw logs format: json or cri (docker|containerd)
+    container_runtime: containerd
+    agent:
+      # Specify each pod whose logs you want to process
+      acquisition:
+        # The namespace where the pod is located
+        - namespace: traefik
+          # The pod name
+          podName: traefik-*
+          # as in crowdsec configuration, we need to specify the program name to find a matching parser
+          program: traefik
+      env:
+        - name: COLLECTIONS
+          value: "crowdsecurity/traefik"
+    lapi:
+      env:
+        # To enroll the Security Engine to the console
+        - name: ENROLL_KEY
+          value: "cltlvno6u0000l9087tnvut22"
+        - name: ENROLL_INSTANCE_NAME
+          value: "f9-k8s"
+        - name: ENROLL_TAGS
+          value: "k8s linux"
+        - name: BOUNCER_KEY_traefik
+          value: "mysecretkey12345"
