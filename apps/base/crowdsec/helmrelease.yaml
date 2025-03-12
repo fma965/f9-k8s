@@ -28,7 +28,26 @@ spec:
       env:
         - name: COLLECTIONS
           value: "crowdsecurity/traefik"
+    config:
+      config.yaml.local: |
+        db_config:
+          type:     postgresql
+          user:     crowdsec
+          password: ${DB_PASSWORD}
+          db_name:  crowdsec
+          host:     postgresql.postgresql
+          port:     5432
+          sslmode:  disable
+
     lapi:
+      replicas: 3
+      persistentVolume:
+      # When replicas for LAPI is greater than 1, two options, persistent volumes must be disabled, or in ReadWriteMany mode
+      config:
+        enabled: false
+      # data volume is not required, since SQLite isn't used
+      data:
+        enabled: false
       env:
         # To enroll the Security Engine to the console
         - name: ENROLL_KEY
@@ -39,3 +58,8 @@ spec:
           value: "k8s linux"
         - name: BOUNCER_KEY_traefik
           value: "mysecretkey12345"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: crowdsec-secret
+              key: DB_PASSWORD
