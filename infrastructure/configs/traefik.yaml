@@ -47,3 +47,17 @@ spec:
           kind: TraefikService
   tls:
     secretName: f9-casa-tls
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+    name: cloudflare-plugin
+    namespace: traefik
+spec:
+    plugin:
+        traefik-plugin-cloudflare:
+            overwriteRequestHeader: "true"
+            refreshInterval: 24h
+            allowedCIDRs:
+            - 10.0.10.0/24
+            - 192.168.1.0/24
