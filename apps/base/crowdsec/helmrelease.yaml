@@ -43,11 +43,11 @@ spec:
       replicas: 3
       persistentVolume:
       # When replicas for LAPI is greater than 1, two options, persistent volumes must be disabled, or in ReadWriteMany mode
-      config:
-        enabled: false
-      # data volume is not required, since SQLite isn't used
-      data:
-        enabled: false
+        config:
+          enabled: false
+        # data volume is not required, since SQLite isn't used
+        data:
+          enabled: false
       env:
         # To enroll the Security Engine to the console
         - name: ENROLL_KEY
