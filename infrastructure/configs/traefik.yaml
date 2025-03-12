@@ -51,13 +51,11 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-    name: cloudflare-plugin
+    name: cloudflare
     namespace: traefik
 spec:
     plugin:
-        traefik-plugin-cloudflare:
-            overwriteRequestHeader: "true"
-            refreshInterval: 24h
-            allowedCIDRs:
-            - 10.0.10.0/24
-            - 192.168.1.0/24
+        cloudflarewarp:
+            disableDefault: "false"
+            trustip:
+                - 192.168.1.0/24

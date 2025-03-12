@@ -101,6 +101,6 @@ spec:
         crowdsec-bouncer-traefik-plugin:
           moduleName: "github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
           version: "v1.4.1"
-        traefik-plugin-cloudflare:
-          moduleName: github.com/agence-gaya/traefik-plugin-cloudflare
-          version: v1.0.0
+        cloudflarewarp:
+          modulename: github.com/BetterCorp/cloudflarewarp
+          version: v1.3.0
