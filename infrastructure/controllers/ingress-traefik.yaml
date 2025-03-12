@@ -92,7 +92,7 @@ spec:
       labels: {}
       spec:
         loadBalancerIP: 10.0.10.250 # this should be an IP in the MetalLB range
-        externalTrafficPolicy: Local
+        #externalTrafficPolicy: Local
       loadBalancerSourceRanges: []
       externalIPs: []
 
