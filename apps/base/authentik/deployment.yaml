@@ -3,10 +3,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: authentik-server
-    app.kubernetes.io/instance: authentik-server
-    app.kubernetes.io/name: authentik-server
-  name: authentik-server
+    app: authentik
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/name: authentik
+  name: authentik
   namespace: authentik
 spec:
   replicas: 1
@@ -14,17 +14,18 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: authentik-server
+      app: authentik
   template:
     metadata:
       labels:
-        app: authentik-server
-        app.kubernetes.io/name: authentik-server
+        app: authentik
+        app.kubernetes.io/name: authentik
     spec:
       nodeSelector:
         worker: "true"
-      containers:
-        - args:
+      containers:   
+        - name: authentik-server 
+          args:
             - server
           envFrom:
             - secretRef:
@@ -43,11 +44,45 @@ spec:
             - name: TZ
               value: Europe/London
           image: ghcr.io/goauthentik/server:latest
-          name: authentik-server
+          
           ports:
             - containerPort: 9000
               hostPort: 9000
               protocol: TCP
+          volumeMounts:
+            - mountPath: /backups
+              name: config
+              subPath: backups
+            - mountPath: /media
+              name: config
+              subPath: media
+            - mountPath: /certs
+              name: config
+              subPath: certs
+            - mountPath: /templates
+              name: config
+              subPath: templates      
+
+        - name: authentik-worker
+          args:
+            - worker
+          envFrom:
+            - secretRef:
+                name: authentik-secret
+          env:
+            - name: AUTHENTIK_ERROR_REPORTING__ENABLED
+              value: "false"
+            - name: AUTHENTIK_POSTGRESQL__HOST
+              value: postgresql.postgresql
+            - name: AUTHENTIK_POSTGRESQL__NAME
+              value: authentik
+            - name: AUTHENTIK_POSTGRESQL__USER
+              value: authentik
+            - name: AUTHENTIK_REDIS__HOST
+              value: redis.redis
+            - name: TZ
+              value: Europe/London
+          image: ghcr.io/goauthentik/server:latest
           volumeMounts:
             - mountPath: /backups
               name: config
