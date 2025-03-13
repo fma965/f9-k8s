@@ -4,6 +4,7 @@ resources:
   - cloudflare-secret.enc.yaml
   - cluster-issuers.yaml
   - traefik.yaml
+  - traefik-middleware.yaml
   - certificate.yaml
   - longhorn-secret.enc.yaml
   - ingress-longhorn.yaml

@@ -8,23 +8,6 @@ spec:
     secretName: f9-casa-tls
 ---
 apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: default-headers
-  namespace: default
-spec:
-  headers:
-    browserXssFilter: true
-    contentTypeNosniff: true
-    forceSTSHeader: true
-    stsIncludeSubdomains: true
-    stsPreload: true
-    stsSeconds: 15552000
-    customFrameOptionsValue: SAMEORIGIN
-    customRequestHeaders:
-      X-Forwarded-Proto: https
----
-apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefik-dashboard
@@ -47,30 +30,3 @@ spec:
           kind: TraefikService
   tls:
     secretName: f9-casa-tls
----
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-    name: cloudflare
-    namespace: traefik
-spec:
-    plugin:
-        cloudflarewarp:
-            disableDefault: "false"
-            trustip:
-              - 10.0.0.0/8
-              - 172.16.0.0/12
-              - 192.168.0.0/16
----
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-    name: internal
-    namespace: traefik
-spec:
-  ipAllowList:
-    sourceRange:
-      - 127.0.0.1/32
-      - 10.0.0.0/8
-      - 172.16.0.0/12
-      - 192.168.0.0/16
