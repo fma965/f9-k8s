@@ -1,8 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: crowdsec
+namespace: pterodactyl
 resources:
   - namespace.yaml
   - secret.enc.yaml
-  - helmrepository.yaml
-  - helmrelease.yaml
+  - deployment.yaml
+  - service.yaml
+  - headers.yaml
+  - ingress.yaml

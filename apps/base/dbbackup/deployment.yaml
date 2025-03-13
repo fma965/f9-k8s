@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/instance: dbbackup
     app.kubernetes.io/name: dbbackup
   name: dbbackup
-  namespace: backup
+  namespace: dbbackup
 spec:
   replicas: 1
   strategy:
