@@ -7,11 +7,15 @@ metadata:
   name: ntfy
   namespace: ntfy 
 spec:
-  type: ClusterIP
-  selector:
-    app: ntfy-pod
+  type: LoadBalancer
+  loadBalancerIP: 10.0.10.203
   ports:
+    - name: smtp-ntfy-out
+      port: 25
+      targetPort: 25
     - name: http-ntfy-out
       protocol: TCP
       port: 80
       targetPort: http-ntfy
+  selector:
+    app: ntfy
