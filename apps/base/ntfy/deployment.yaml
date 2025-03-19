@@ -42,7 +42,7 @@ spec:
               - mountPath: /etc/ntfy/server.yml
                 subPath: server.yml
                 name: config-volume # generated vie configMapGenerator from kustomization file
-        volumes:
-          - name: config-volume
-            configMap:  # uses configmap generator to parse server.yml to configmap
-              name: server-config
+          volumes:
+              - name: config-volume
+                configMap:  # uses configmap generator to parse server.yml to configmap
+                  name: server-config
