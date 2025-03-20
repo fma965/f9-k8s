@@ -38,11 +38,20 @@ spec:
             requests:
                   cpu: 150m
                   memory: 150Mi
-          # volumeMounts:
-          #     - mountPath: /etc/ntfy/server.yml
-          #       subPath: server.yml
-          #       name: config-volume # generated vie configMapGenerator from kustomization file
-          # volumes:
-          #     - name: config-volume
-          #       configMap:  # uses configmap generator to parse server.yml to configmap
-          #         name: server-config
+          volumeMounts:
+              - mountPath: /etc/ntfy/server.yml
+                subPath: server.yml
+                name: config-volume # generated vie configMapGenerator from kustomization file
+              - mountPath: /var/cache/ntfy
+                name: ntfy
+                subPath: cache
+              - mountPath: /var/lib/ntfy
+                name: ntfy
+                subPath: auth
+      volumes:
+        - name: config-volume
+          configMap:  # uses configmap generator to parse server.yml to configmap
+            name: server-config
+        - name: ntfy
+          persistentVolumeClaim: # stores /cache/ntfy in defined pv
+            claimName: ntfy
