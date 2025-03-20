@@ -16,5 +16,5 @@ spec:
         - name: ntfy
           port: 80
       middlewares:
-        - name: ntfy
-          namespace: ntfy
+        - name: default-headers
+          namespace: default
