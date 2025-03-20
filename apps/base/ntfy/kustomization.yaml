@@ -9,5 +9,5 @@ resources:
 configMapGenerator: # will parse config from raw config to configmap,it allows for dynamic reload of application if additional app is deployed ie https://github.com/stakater/Reloader
     - name: server-config
       files: 
-        - server.yaml
+        - server.yml
 namespace: ntfy # select namespace for whole application 

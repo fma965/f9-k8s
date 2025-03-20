@@ -53,5 +53,5 @@ spec:
           configMap:  # uses configmap generator to parse server.yml to configmap
             name: server-config
         - name: ntfy
-          persistentVolumeClaim: # stores /cache/ntfy in defined pv
+          persistentVolumeClaim:
             claimName: ntfy
