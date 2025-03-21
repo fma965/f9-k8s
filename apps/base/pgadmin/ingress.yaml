@@ -15,6 +15,6 @@ spec:
       services:
         - name: pgadmin
           port: 80
-      middlewares:
-        - name: authentik
-          namespace: authentik
+      # middlewares:
+      #   - name: authentik
+      #     namespace: authentik
