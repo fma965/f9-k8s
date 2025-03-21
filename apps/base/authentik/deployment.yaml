@@ -49,6 +49,12 @@ spec:
             - containerPort: 9000
               hostPort: 9000
               protocol: TCP
+            - containerPort: 389
+              hostPort: 3389
+              protocol: TCP
+            - containerPort: 636
+              hostPort: 6636
+              protocol: TCP
           volumeMounts:
             - mountPath: /backups
               name: config
@@ -101,3 +107,10 @@ spec:
         - name: config
           persistentVolumeClaim:
             claimName: authentik
+
+        - name: authentik-ldap
+          envFrom:
+            - secretRef:
+                name: authentik-secret
+          image: ghcr.io/goauthentik/proxy
+      restartPolicy: Always
