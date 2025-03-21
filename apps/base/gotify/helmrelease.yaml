@@ -14,11 +14,11 @@ spec:
         name: gotify
         namespace: gotify
       interval: 12h
-  valuesFrom:
-    - kind: Secret
-      name: gotify-secret
-      valuesKey: secret.enc.yaml
-      targetPath: server.databaseConnection
+  # valuesFrom:
+  #   - kind: Secret
+  #     name: gotify-secret
+  #     valuesKey: secret.enc.yaml
+  #     targetPath: server.databaseConnection
   values:
     server:
       # -- select database kind (sqlite3, mysql, postgres)
